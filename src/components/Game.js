@@ -43,20 +43,23 @@ function Game() {
 
   //Handle player
   const handleClick = (i) => {
-    // lượt của x hay o
-    
-    // index setSquares
-    squares[i] = setCharacter();
-    // setSquares(squares);
-    // xIsNext
-    setXIsNext(!xIsNext);
-  };
+    const newSquares = squares.slice();
+
+    if (calculateWinner(newSquares) || newSquares[i]) {
+      return;
+    }
+
+    newSquares[i] = setCharacter();
+
+    setSquares(newSquares);
+    setXIsNext((prevState) => !prevState);
+  }
+  
 
   //Restart game
   const handlRestart = () => {
     setSquares(Array(9).fill(null));
     setXIsNext(true);
-    setWinner(null)
   };
 
   return (
